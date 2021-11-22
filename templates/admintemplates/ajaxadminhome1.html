@@ -1,0 +1,112 @@
+        {% load static %}
+        <div class="content">
+          <div class="container-fluid">
+           <p> All Reports <span id="startdate">from:{{start}}</span><span id="enddate">  To:{{end}}</span></p>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons">book</i>
+                    </div>
+                      <p class="card-category">total views</p>
+                      <h3 class="card-title" id="countviews">{{viewscount}}<i class="fa fa-eye" aria-hidden="true"></i></h3>                                
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons text-danger">warning</i>
+                      <a href="#pablo">Get More Space...</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons">equalizer</i>
+                    </div>
+                    <p class="card-category">total news</p>
+                    <h3 class="card-title" id="countnews">{{newscount}}<i class="fa fa-book"></i></h3>                                
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">local_offer</i> Tracked from Google Analytics
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card ">
+                  <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons"></i>
+                    </div>
+                    <h4 class="card-title">Editors</h4>
+                  </div>
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="table table-responsive table-sales table-hover">
+                          <table class="table table-hover" id="editorinfo">
+                            <thead>
+                              <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                                <th>Sn.</th>
+                                <th>name</th>
+                                <th>image</th>
+                                <th>news posted</th>
+                                <th>verified news</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for editor in editors %}
+                              <tr style="text-align: center;" class="table table-bordered" id="editorinfo">
+                                <td>{{forloop.counter}}</td>
+                                <td><a href="">{{editor.full_name}}</a></td>
+                                <td class="flag">
+                                    {% if editor.image %}
+                                    <img src="{{editor.image.url}}" >
+                                    {% else %}
+                                    no image
+
+                                    {% endif %}
+                                </td>
+                                <td class="countview{{forloop.counter}}"></td>
+                                <td>{{editor.verified_news}}</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+                       
+                  <!-- <script type="text/javascript">
+                    $('#demo').on('change', function(){
+                      var start = $('#start').text();
+                      var end = $('#end').text();
+                      var editorinfo = $('#editorinfo').value();
+                    })
+                  </script> -->
+<script type="text/javascript">
+  var a = []
+  '{% for editor in editors %} '
+    var count = 0
+  '{% for news in allnews %}'
+  '{% if news.editor.full_name == editor.full_name %}'
+    count += 1;
+  '{% endif %}'
+  '{% endfor %}'
+  // alert(count);
+  a.push(count);
+  $('.countview{{forloop.counter}}').text(count);
+  '{% endfor %}'
+</script>

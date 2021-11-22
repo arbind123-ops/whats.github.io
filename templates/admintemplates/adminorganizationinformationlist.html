@@ -1,0 +1,90 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block org %}
+nav-item active
+{% endblock %} 
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+       
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">assignment</i>
+            </div>
+            
+            <h4 class="card-title">OrganizationInformation  Table</h4>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+             <div>
+
+             </div>
+           </div>
+           <div class="material-datatables">
+            <table id="datatables" class="table table-hover" cellspacing="0"style="width:100%">
+              <thead class="table">
+                <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                  <th>Sn</th>
+                  <th>Name</th>
+                  <th>logo</th>
+                  <th>Contact_no</th>
+                  <th>address</th>
+                  <th>slogan</th>
+                  <th>email</th>
+                  
+                  <th class="disabled-sorting text-right">Actions</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr style="text-align: center;">
+                  <th>Sn.</th>
+                  <th>Name</th>
+                  <th>logo</th>
+                  <th>Contact_no</th>
+                  <th>address</th>
+                  <th>slogan</th>
+                  <th>email</th>
+
+                  <th class="text-right">Actions</th>
+                </tr>
+              </tfoot>
+              <tbody>
+               {% for information in organizationinformationlist%}
+               <tr style="text-align: center">
+                <td>{{forloop.counter}}</td>
+                <td>{{information.name}}</td>
+                <td><img src={{information.logo.url}} class="img-responsive" style="width:40%"></td>
+                <td>{{information.contact_no}}</td>
+                <td>{{information.address}}</td>
+                <td>{{information.slogan}}</td>
+                <td>{{information.email}}</td>
+                <td class="text-right">
+                 
+                  <a href="{% url 'newsapp:organizationinformationupdate' information.pk %}" class="btn btn-link btn-primary btn-just-icon edit"><i class="material-icons">edit</i></a>
+
+
+                </div>
+
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- end content-->
+  </div>
+  <!--  end card  -->
+</div>
+<!-- end col-md-12 -->
+</div>
+<!-- end row -->
+</div>
+</div>
+
+{% endblock %}

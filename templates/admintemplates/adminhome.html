@@ -1,0 +1,198 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block home %}
+nav-item active
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<div class="col-md-4" style="float: right; padding-top: 20px;">
+  Filter Date:
+  <input type="text" id="demo" class="form-control" value= "from-to">
+  <p style="visibility: hidden;"><b id="start">2018-01-01</b>   To   <b id="end">2018-01-15</b></p>
+</div>
+<div class="content" id="ajaxadminhome">
+  <div class="content">
+    <div class="container-fluid">
+      <h2> All Reports till date </h2>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">book</i>
+              </div>
+                <p class="card-category">total views</p>
+                <h3 class="card-title" id="countviews">{{totalviews}}{{viewscount}}<i class="fa fa-eye" aria-hidden="true"></i></h3>                                
+            </div>
+            <div class="card-footer">
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-rose card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">equalizer</i>
+              </div>
+              <p class="card-category">total news</p>
+              <h3 class="card-title" id="countnews">{{totalnews.count}}{{newscount}}<i class="fa fa-book"></i></h3>                                
+            </div>
+            <div class="card-footer">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card ">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">people</i>
+              </div>
+              <h4 class="card-title">Editors</h4>
+            </div>
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table table-responsive table-sales table-hover">
+                    <table class="table table-hover" id="editorinfo">
+                      <thead>
+                        <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                          <th>Sn.</th>
+                          <th>name</th>
+                          <th>image</th>
+                          <th>news posted</th>
+                          <th>verified news</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for editor in editorname %}
+                        <tr style="text-align: center" class="table table-bordered" id="editorinfo">
+                          <td>{{forloop.counter}}</td>
+                          <td><a href="{% url 'newsapp:admineditornewslist' editor.id %}">{{editor.full_name}}</a></td>
+                          <td class="flag">
+                              {% if editor.image %}
+                              <img src="{{editor.image.url}}" >
+                              {% else %}
+                              no image
+
+                              {% endif %}
+                          </td>
+                          <td>{{editor.news_set.count}}</td>
+                          <td>{{editor.verified_news}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                  <!-- <script type="text/javascript">
+                    $('#demo').on('change', function(){
+                      var start = $('#start').text();
+                      var end = $('#end').text();
+                      var editorinfo = $('#editorinfo').value();
+                    })
+                  </script> -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.paddingRight = 20;
+
+// Add data
+chart.data = [{
+  "year": "{{org.created_at}}",
+  "value": 3
+},
+{
+  "year": "2019/07/12",
+  "value": 8
+},{
+  "year": "2019/07/13",
+  "value": 2
+},{
+  "year": "2019/07/14",
+  "value": 12
+},
+ ];
+
+// Create axes
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "year";
+categoryAxis.renderer.minGridDistance = 50;
+categoryAxis.renderer.grid.template.location = 0.5;
+categoryAxis.startLocation = 0.5;
+categoryAxis.endLocation = 0.5;
+
+// Pre zoom
+chart.events.on("datavalidated", function () {
+  categoryAxis.zoomToIndexes(Math.round(chart.data.length * 0.4), Math.round(chart.data.length * 0.55));
+});
+
+// Create value axis
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.baseValue = 0;
+
+// Create series
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.valueY = "value";
+series.dataFields.categoryX = "year";
+series.strokeWidth = 2;
+series.tensionX = 0.77;
+
+var range = valueAxis.createSeriesRange(series);
+range.value = 0;
+range.endValue = 1000;
+range.contents.stroke = am4core.color("#FF0000");
+range.contents.fill = range.contents.stroke;
+
+// Add scrollbar
+var scrollbarX = new am4charts.XYChartScrollbar();
+scrollbarX.series.push(series);
+chart.scrollbarX = scrollbarX;
+
+chart.cursor = new am4charts.XYCursor();
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
+amCharts
+
+
+
+
+{% endblock %}

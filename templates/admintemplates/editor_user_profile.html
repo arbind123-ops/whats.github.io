@@ -1,0 +1,75 @@
+{% extends 'admintemplates/editorbase.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">perm_identity</i>
+						</div>
+						<h4 style="color: #000000">edit Profile</h4>
+					</div>
+					<div class="card card-body">
+						<form method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<!-- {{form.as_p}} -->
+							<div class="row">
+								<div class="col-md-4">
+									username{{form.full_name}}
+								</div>
+								<div class="col-md-4">
+									address{{form.address}}
+								</div>
+								<div class="col-md-4">
+									contact no.{{form.contact_no}}
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+									email{{form.email}}
+								</div>
+								<div class="col-md-6">
+									image {{form.image}}
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-8">
+									about{{form.about}}
+								</div>
+							</div>
+						<span style="padding-left: 35%"><button type="submit" class="btn btn-lg">update</button></span>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar">
+                  <a>
+                    <img class="img" src="{{ user.editor.image.url }}" style="height: 150px" />
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-category text-gray">Editor</h6>
+                  <h4 class="card-title">{{user.editor.full_name}}</h4>
+                  <p class="card-description">
+                    {{user.editor.about|safe}}
+                  </p>
+                  <a href="#" class="btn btn-rose btn-round">read me</a>
+                </div>
+              </div>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

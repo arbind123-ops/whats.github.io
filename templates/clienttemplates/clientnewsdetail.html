@@ -1,0 +1,164 @@
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="entity_section" class="entity_section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="entity_wrapper">
+					<div class="entity_title">
+						<h1>{{clientnewsdetail.title}}<br>|{{clientnewsdetail.view_count}}<i class="fa fa-eye"></i></h1>
+						
+					</div>
+					<div>
+						<p class='text-left' style="display: inline-block;">{{clientnewsdetail.created_at|date}}
+							{% if not clientnewsdetail.editor %}
+							{% else %}
+							<a href="{% url 'newsapp:editornewsdetail' clientnewsdetail.editor_id %}"><span class="text-right" style="margin-left: 10px;">By: {{clientnewsdetail.editor.full_name}}</span></a>
+							{% endif %}
+						</p>
+					</div>
+					<div class="entity_thumb">
+						<img src={{clientnewsdetail.image.url}} class="img-responsive hoverimage" style="width: 100%; object-fit:contain;">
+					</div>
+					<div class="entity_content">
+						{{clientnewsdetail.content|safe}}
+					</div>
+				</div>
+
+				<div class="related_news">
+					<div class="entity_inner__title header_purple">
+					<!-- 	<h2>Related News</h2> -->
+					</div>
+					<div class="row">
+						{% for newslist in relatednewslist|slice:'4' %}
+						<div class="col-md-6">
+							<div class="media">
+
+
+								<div class="media-left">
+									<img class="media-object hoverimage" src="{{newslist.image.url}}" alt="{{newslist.title}}" class='img-responsive' width='200'>
+								</div>
+								<div class="media-body">
+									<span class="tag purple"><a href="" target="_self">{{newslist.main_category}}</a></span>
+									<a href="{% url 'newsapp:clienthome' %}" target="_self"><h3 class="media-heading">{{newslist.content|striptags|safe|truncatechars:'50'}}</h3></a>
+									{% if not newslist.editor %}
+									{% else %}
+									<span class="media-date"><{{newslist.created_at|date}}, by: <a href="{% url 'newsapp:editornewsdetail' newslist.editor.id %}">{{newslist.editor.full_name}}</a></span>{% endif %}
+									<div class="media_social">
+
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="readers_comment">
+					<div class="entity_inner__title header_purple">
+						<h2>Readers Comment</h2>
+					</div>
+
+					{% for comment in clientnewsdetail.comment_set.all %}
+					<div class="media">
+						<div class="media-left">
+
+							<img alt="64x64" class="media-object" data-src="{% static 'clientstatic/img/reader_img1.jpg' %}" src="{% static 'clientstatic/img/reader_img1.jpg' %}" data-holder-rendered="true">
+							
+						</div>
+						<div class="media-body">
+							<h2 class="media-heading">{{comment.commenter}}</h2>
+							{{comment.comment}}
+						</div>
+					</div>
+					{% endfor %}
+					<div>
+						<h1>	total comment:{{commentlist1}}</h1>
+					</div>
+				</div>
+
+				<div class="widget_advertisement">
+					<img class="img-responsive" src="{% static 'clientstatic/img/category_advertisement.jpg' %}" alt="feature-top">
+				</div>
+				<div class="entity_comments">
+					<div class="entity_inner__title header_black">
+						<h2>Add a Comment</h2>
+					</div>
+					<div class="entity_comment_from">
+						<form method="post" action="{% url 'newsapp:commentcreate' clientnewsdetail.id %}">
+							{% csrf_token %}
+							<div class="form-group">
+								<!-- <input type="text" class="form-control" id="inputName" placeholder="Name"> -->
+								{{commentform.commenter}}
+							</div>
+							<div class="form-group">
+								{{commentform.email}}
+							</div>
+							<div class="form-group comment">
+								{{commentform.comment}}
+							</div>
+							<button type="submit" class="btn btn-submit red">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="widget">
+					<div class="widget_title widget_black">
+						<h2>Popular News</h2>
+					</div>
+					{% for news in popularnews|slice:'5' %}
+					{% if clientnewsdetail.title != news.title %}
+					<div class="media">
+						<div class="media-left">
+							<img class="media-object" src="{{news.image.url}}" alt="{{news.title}}" width="100" height="100">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">
+								<a href="{% url 'newsapp:clientnewsdetail' news.id %}">
+									{{news.title}}</a>
+							</h3>
+							<p>{{news.content|striptags|safe|truncatechars:'30'}}</p>
+							<span class="media-date">{{news.created_at|date}}  
+								{% if not news.editor %}
+								{% else %}
+								<br>
+								by:
+								<a href="{% url 'newsapp:editornewsdetail' news.editor.id %}">{{news.editor}}</a>
+								{% endif %}
+							</span>
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+					<div class="widget m30">
+						<div class="widget_title widget_black">
+							<h1>Latest News</h1>
+						</div>
+						{% for  news in  latestnews|slice:'5' %}
+						{% if clientnewsdetail.title != news.title %}
+						<div class="media">
+							<div class="media-left">
+								<img class="media-object" src="{{news.image.url}}" alt="{{news.title}}" class="img-responsive" width="100" height="100" style="object-fit:cover;">
+							</div>
+							<div class="media-body">
+								<h3 class="media-heading">
+									<a href="{% url 'newsapp:clientnewsdetail' news.id %}" target="_self">{{news.title}}</a>
+								</h3>
+								<p>{{news.content|striptags|truncatechars:'50'}}</p>
+								
+							</div>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

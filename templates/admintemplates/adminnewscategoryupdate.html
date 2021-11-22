@@ -1,0 +1,41 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block news %}
+nav-item active
+{% endblock %} 
+
+{% block content %}
+
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<div>
+							<h4 style="color: #000000">update category</h4>
+							<br>
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+
+								{{form.as_p}}
+
+								<!-- <input type="submit" value="Update"> -->
+								<span style="padding-left: 25%"><button type="submit" style="width: 150px;height: 35px">update</button></span>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

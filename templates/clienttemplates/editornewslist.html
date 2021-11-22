@@ -1,0 +1,22 @@
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% for editor in editornewslist %}
+
+{% for news in editor.news_set.all %}
+
+
+
+
+<h1>{{ news.title }}</h1>
+<h3>{{ news.editor }}</h3>
+<h3>{{ news.editor.id }} </h3>
+
+{% endfor %}
+
+{% endfor %}
+
+{% endblock %}

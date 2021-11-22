@@ -1,0 +1,258 @@
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-8">
+
+			{% for news in filtered_news|slice:'1' %}
+
+			<div class="entity_wrapper">
+
+				<div class="entity_title header_purple">
+					<!-- <h1><a target="_blank">{{ news.main_category }}</a></h1> -->
+				</div>
+
+				<div class="entity_thumb" style="margin-top: 5px;">
+					<img class="img-responsive" src="{{ news.image.url }}" alt="feature-top">
+				</div>
+
+				<div class="entity_title">
+					<a href="{% url 'newsapp:clientnewsdetail' news.pk %}"><h3> {{ news.title }} </h3></a>
+				</div>
+
+				<div class="entity_meta">
+					{% if not news.editor %}
+					{% else %}
+					<a>{{ news.created_at }}</a>, by: <a href="{% url 'newsapp:editornewsdetail' news.editor.id %}">{{ news.editor }}</a>
+					{% endif %}
+				</div>
+
+
+				<div class="entity_content">
+
+					{{ news.content|striptags|safe|truncatechars:200 }}
+					{{ news.content |truncatechars:200|safe }}
+
+				</div>
+
+				<div class="entity_social">
+					<span><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fnews%2F16%2Fdetail%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i id="countshares" class="fa fa-share-alt" data-href="http://127.0.0.1:8000/news/{{news.id}}/detail/" data-layout="button" data-size="small"></i></a>Shares</span>
+					<!-- <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span> -->
+				</div>
+			</div>
+			{% endfor %}
+
+	<!-- 	<div class="widget hidden-xs m30">
+		{% for company in advertiselist|slice:':1' %}
+			<img class="img-responsive widget_img" src="{{ company.image.url }}" style = "height:60px; width:800px;"  alt="add_one">
+		{% endfor %}
+		</div> -->
+
+
+		<div class="row">
+			{% for news in filtered_news|slice:'1:' %}
+			<div class="col-md-6">
+	
+				<div class="category_article_body">
+						
+					<div class="top_article_img">
+						<img class="img-fluid" src="{{ news.image.url }}" style = "height:300px; width:350px;" alt="feature-top">
+					</div>
+
+					<div class="category_article_title">
+						<h5><a href="{% url 'newsapp:clientnewsdetail' news.pk %}">{{ news.title }} </a></h5>
+					</div>
+
+					<div class="article_date">
+						{% if not news.editor %}
+						{% else %}
+						<a>{{ news.created_at }}</a>, by: <a href ="{% url 'newsapp:editornewsdetail' news.editor.id %}">{{ news.editor }}</a>
+						{% endif %}
+					</div>
+
+					<div class="category_article_content">
+						{{ news.content|truncatechars:150|safe }}
+					</div>
+
+					<div class="article_social">
+						<span><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fnews%2F16%2Fdetail%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i id="countshares" class="fa fa-share-alt" data-href="http://127.0.0.1:8000/news/{{news.id}}/detail/" data-layout="button" data-size="small"></i></a>Shares</span>
+							<!-- <span><a href="#"><i class="fa fa-share-alt"></i>424 </a> Shares</span> -->
+		
+					</div>
+
+					<br>
+
+				</div>	
+			</div>
+			{% endfor %}
+
+		
+
+
+
+
+
+
+
+					<div class="category_article_content">
+						{{ news.content|truncatechars:150|safe }}
+					</div>
+
+
+
+		</div>
+
+
+	
+<!--  		
+ 		<div>
+		{% for rootcategory in rootcategorylist %}
+
+		{% if rootcategory.root != None %} 	
+		{% for news in clientcategorydetail.news_set.all %} 
+
+
+		<h1> {{news.main_category }} </h1>
+		<h1> {{ news.title }}</h1>
+		<h2> {{ news.editor }} </h2>
+		<img class="img-fluid" src="{{ news.image.url }}" style = "height:300px; width:350px;" alt="feature-top">
+
+
+		 {% endfor %} 
+		 {% endif %} 
+		{% endfor %}
+	</div> -->
+
+		
+	<!-- 	<div class="widget hidden-xs m30">
+			{% for company in advertiselist|slice:'1:2' %}
+			<img class="img-responsive widget_img" src="{{ company.image.url }}" style = "height:60px; width:800px;"  alt="add_one">
+			{% endfor %}
+		</div> -->
+		
+	</div>
+
+
+	<div class="col-md-4">
+		<div class="widget">
+			<div class="widget_title widget_black">
+				<h2><a>Popular News</a></h2>
+			</div>
+			{% for news in popularnews|slice:':4' %}
+			<div class="media">
+
+				<div class="media-left">
+					<a ><img class="media-object" src="{{ news.image.url }}" style = "height:100px; width:100px;" alt="Generic placeholder image"></a>
+				</div>
+
+				<div class="media-body">
+					<h3 class="media-heading">
+						<a href="{% url 'newsapp:clientnewsdetail' news.pk %}" target="_self"> {{ news.title |truncatechars:60 }}</a>
+						{% if not news.editor %}
+						{% else %}
+					</h3> <span class="media-date"><a>{{ news.created_at }}</a>, by: <a href="{% url 'newsapp:editornewsdetail' news.editor.id %}">{{ news.editor }}</a>
+					{% endif %}</span>
+
+					<div class="widget_article_social">
+						<span><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fnews%2F16%2Fdetail%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i id="countshares" class="fa fa-share-alt" data-href="http://127.0.0.1:8000/news/{{news.id}}/detail/" data-layout="button" data-size="small"></i></a>Shares</span>
+<!-- 							<span>
+								<a href="single.html" target="_self"> <i class="fa fa-share-alt"></i>424</a> Shares
+							</span> -->
+					<!-- 	<span>
+							<a><i class="fa fa-comments-o"></i>4</a> Comments
+						</span> -->
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<!-- <p class="widget_divider"><a href="{% url 'newsapp:popularnewslist' %}" target="_self">More News&nbsp;&raquo;</a></p>
+ -->		</div>
+
+	<!-- 	<div class="widget hidden-xs m30">
+			<img class="img-responsive adv_img" src="{% static 'clientstatic/img/right_add4.jpg'%}" alt="add_one">
+			<img class="img-responsive adv_img" src="{% static 'clientstatic/img/right_add1.jpg'%}" alt="add_one">
+			<img class="img-responsive adv_img" src="{% static 'clientstatic/img/right_add2.jpg'%}" alt="add_one">
+			<img class="img-responsive adv_img" src="{% static 'clientstatic/img/right_add3.jpg'%}" alt="add_one">
+		</div> -->
+
+		<div class="widget hidden-xs m30">
+			{% for company in advertiselist %}
+			{% if forloop.counter == 2 %}
+				<img class="img-responsive widget_img" src="{{ company.image.url }}" alt="add_one">
+			{% endif %}
+			{% endfor %}
+		</div>
+
+
+		<div class="widget m30">
+			<div class="widget_title widget_black">	
+				<h2><a>Latest News</a></h2>
+			</div>
+			{% for news in latestnews|slice:'4' %}
+			<div class="media">
+				<div class="media-left">
+					<a ><img class="media-object" src="{{news.image.url }}" style = "height:125px; width:125px;" alt="Generic placeholder image"></a>
+				</div>
+				<div class="media-body">
+					<h3 class="media-heading">
+						<a href="{% url 'newsapp:clientnewsdetail' news.pk %}" target="_self">{{news.title}}</a>
+					</h3>
+					<div class="media_social">
+						{{news.content|striptags|safe|truncatechars:'100'}}
+					<!-- 	<span><i class="fa fa-comments-o"></i><a>4</a> Comments</span> -->
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+
+
+		<!-- 	{% for company in advertiselist %}
+			{% if forloop.counter == 1 %}
+				<div class="widget hidden-xs m30">
+					<img class="img-responsive widget_img" src="{{ company.image.url }}" alt="add_one">
+				</div>
+			{% endif %}
+			{% endfor %} -->
+
+<!-- 
+			<p class="widget_divider"><a target="_self">More News&nbsp;&nbsp;&raquo; </a></p> -->
+		</div>
+<!-- 
+		<div class="widget m30">
+			<div class="widget_title widget_black">
+				<h2><a >Editor Corner</a></h2>
+			</div>
+
+			{% for editor in newseditor %}
+			{% if forloop.counter == 1 %}
+				<div class="widget_body">
+					{% if editor.image %}
+					<img class="img-responsive left" src="{{ editor.image.url }}" style = "height:125px; width:125px;"alt="Generic placeholder image">
+					{% else %}
+					no image
+					{% endif %}
+					<p>{{ editor.about }}</p>
+				</div>
+			{% endif %}
+			{% endfor %}
+		</div> -->
+
+
+		<!-- <div class="widget hidden-xs m30">
+		{% for company in advertiselist|slice:'2:' %}
+			<img class="img-responsive add_img" src="{{ company.image.url }}"  style = "height:190px; width:175px;" alt="add_one">
+		{% endfor %}
+		</div> -->
+	</div>
+</div>
+
+{% endblock %}
+
+
+

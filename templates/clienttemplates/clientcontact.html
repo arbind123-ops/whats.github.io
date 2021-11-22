@@ -1,0 +1,86 @@
+	{% extends 'clienttemplates/clientbase.html' %}
+	{% load static %}
+	{% block content %}
+	<section id="entity_section" class="entity_section">
+		<div class="container" style="">
+
+
+
+
+				<div class="row">
+					<div class="col-sm-6">
+					<div class="card mt-5" style="width:50rem;">
+
+
+				
+							<h2>Contact<span class="ml-3">Info</span> </h2>
+						
+								<h1><i class="fa fa-phone" aria-hidden="true"><span class="ml-5">Telephone</span></i></h1>
+								
+									<h3><span>9811636463</span></h3>
+						
+								<div class="clearfix"> </div>
+					
+						
+								<h1><i class="fa fa-envelope-o" aria-hidden="true"><span class="ml-5">Mail</span></i></h1>
+						
+									<h5>sarobartech@gmail.com</h5>
+					
+								<div class="clearfix"> </div>
+						
+						
+								<h1><i class="fa fa-map-marker" aria-hidden="true"><span class="ml-3">Location</span></i></h1>
+								<div class="contact-right">
+									<h5>Satdobato,<span>Lalitpur</span></h5>
+								</div>
+								<div class="clearfix"> </div>
+
+					    
+					</div>
+
+				</div>
+					<div class="col-sm-6">
+						<div class="entity_comment_from">
+							<form  method="post">
+								{% csrf_token %}
+								<div class="col-md-12 wthree_contact_left_grid">	
+										{{form.name}}
+									<br>
+										{{form.email}}
+									<br>
+										{{form.mobile}}
+									<br>
+										{{form.subject}}
+									<br>
+										{{form.message}}
+
+									<button class="btn btn-primary" style="margin: 5px;">Send Message</button>
+								</div>
+							</form>   
+
+
+
+
+
+
+						
+	  
+
+
+	</div>
+
+<div class="clearfix"> </div>
+</div>
+</div>
+	
+
+			<div style="margin-top: 20px;">
+			    <iframe style="width: 100%; border: solid; border-color: black;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1352.4458258630993!2d85.32044014079271!3d27.656522992243445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb177ecff27973%3A0xb57b2fbfc94f7fe7!2sSarobar+Technology!5e0!3m2!1sne!2snp!4v1562492566097!5m2!1sne!2snp" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</section>
+
+
+
+
+	{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'admintemplates/editorbase.html' %}
+{% load static %}
+{% block newslist %}
+nav-item active
+{% endblock %}
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card card-title">
+        <h3 style="text-align: center;">{{newsdetail.title}}</h3>
+      </div>
+      <div class="card card-body">
+        {{newsdetail.content|safe}}
+      </div>
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

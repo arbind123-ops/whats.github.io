@@ -1,0 +1,67 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block adver %}nav-item active
+{% endblock %}
+{% block content %}
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+     
+      </div>
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">assignment</i>
+            </div>
+            <h4 class="card-title">Advertisement Position Table</h4>
+            <a href="{% url 'newsapp:advertizementpositionadd'%}" class="btn btn-lg btn-link btn-success pull-right"><i class="material-icons" style="font-size:50px;">add_box</i></a>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+             <div>
+              
+            </div>
+          </div>
+          <div class="material-datatables">
+            <table id="datatables" class="table table-no-bordered table-hover" cellspacing="0"style="width:100%">
+              <thead>
+                <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                  <th>Sn.</th>
+                  <th>Position</th>
+                  <th class="disabled-sorting text-right">Actions</th>
+                </tr>
+              </thead>
+             <tbody>
+               {% for advertizementposition in advertizementpositionlist %}
+              <tr style="text-align: center">
+                <td>{{forloop.counter}}</td>
+                <td>{{advertizementposition.position}}</td>
+                <td class="text-right">
+                  <a href="{% url 'newsapp:advertizementpositionupdate' advertizementposition.pk %}" class="btn btn-link btn-primary btn-just-icon edit"><i class="material-icons">edit</i></a>
+                
+                  <a data-remote="{% url 'newsapp:advertizementpositiondelete' advertizementposition.pk %}" href="{% url 'newsapp:advertizementpositiondelete' advertizementposition.pk %}"class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">close</i></a>
+                </td>
+              </tr>
+           {% endfor %}
+
+         </tbody>
+       </table>
+     </div>
+   </div>
+   <!-- end content-->
+ </div>
+ <!--  end card  -->
+</div>
+<!-- end col-md-12 -->
+</div>
+<!-- end row -->
+</div>
+</div>
+
+             
+
+{% endblock %}

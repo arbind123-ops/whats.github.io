@@ -1,0 +1,86 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block editor %}nav-item active
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+       
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">people</i>
+              <!-- <i class="fa fa-user-friends"></i> -->
+            </div>
+            <h4 class="card-title">Editors List</h4>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+             <div>
+
+             </div>
+           </div>
+           <div class="material-datatables">
+              <table id="datatables" class="table table-no-bordered table-hover" cellspacing="0"style="width:100%">
+              <thead>
+                <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                  <th>Sn.</th>
+                  <th>User</th>
+                  <th>full name</th>
+                  <th>contact_no</th>
+                  <th>address</th>
+                  <th>email</th>                  
+                  <th class="disabled-sorting">About</th>                 
+                  <th class="disabled-sorting text-right">Actions</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr style="text-align: center;">
+                <th>sn.</th>
+                 <th>User</th>
+                 <th>full name</th>
+                 <th>contact_no</th>
+                 <th>address</th>
+                 <th>email</th>
+                 <th>about</th>                 
+                 <th class="text-right">Actions</th>
+               </tr>
+             </tfoot>
+             <tbody>
+               {% for editorlist in admineditorlist %}
+               <tr style="text-align: center">
+                <td>{{forloop.counter}}.</td>
+                <td>{{editorlist.user}}</td>
+                <td>{{editorlist.full_name}}</td>
+                <td>{{editorlist.contact_no}}</td>
+                <td>{{editorlist.address}}</td>
+                <td>{{editorlist.email}}</td>                
+                <td>
+                <a data-remote="{% url 'newsapp:admineditordetail' editorlist.pk %}"href="{% url 'newsapp:admineditordetail' editorlist.pk %}" data-toggle="modal" data-target="#myModal">read me</a>
+                </td>
+                <td class="text-right">
+                  <a href="{% url 'newsapp:editorupdate' editorlist.pk %}" class="btn btn-link btn-primary btn-just-icon edit"><i class="material-icons">edit</i></a>
+                  <a data-remote="{% url 'newsapp:editordelete' editorlist.pk %}"href="{% url 'newsapp:editordelete' editorlist.pk %}"class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">close</i></a>
+                  </td>
+             </tr>
+             {% endfor %}
+             
+           </tbody>
+         </table>
+       </div>
+     </div>
+     <!-- end content-->
+   </div>
+   <!--  end card  -->
+ </div>
+ <!-- end col-md-12 -->
+</div>
+<!-- end row -->
+</div>
+</div>
+
+{% endblock %}

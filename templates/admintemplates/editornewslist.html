@@ -1,0 +1,82 @@
+  {% extends 'admintemplates/editorbase.html' %}
+  {% load static %}
+  {% block newslist %}
+  nav-item active
+  {% endblock %}
+
+  {% block content %}
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">assignment</i>
+              </div>
+              <a href="{% url 'newsapp:newsadd'%}" class="btn btn-link btn-warning btn-just-icon edit" style ='margin-left:87%; margin-top:30px; margin-right: 2px;'><i class="material-icons" style="font-size:50px;">add_box</i></a>
+              <h4 class="card-title">News List</h4>
+            </div>
+            <div class="card-body">
+              <div class="toolbar">
+               <div>
+                
+               </div>
+             </div>
+             <div class="material-datatables">
+              <table id="datatables" class="table table-no-bordered table-hover" cellspacing="0"style="width:100%">
+                <thead>
+                  <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                    <th>Sn.</th>
+                    <th>Title</th>
+                    <th>main_category</th>
+                    <th>sub_category</th>
+                    <th class="disabled-sorting">video_link</th>                   
+                    <th class="disabled-sorting">image</th>
+                    <th class="disabled-sorting">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {% for news in editor.news_set.all %}
+                 <tr style="text-align: center;">
+                  <td>{{forloop.counter}}</td>
+                  <td style="width: 20%"><a href="{% url 'newsapp:newsdetail' news.pk %}"><U>{{news.title}}</U></a></td>
+                  <td style="width: 10%">{{news.main_category}}</td>
+                  <td>{{news.sub_category}}</td>
+                  <td>
+                    {% if news.video_link %}
+                      <a href="{{news.video_link}}" target="__blank">click for video</a>
+                    {% else %}
+                      ANONYMOUS
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if news.image %}
+                    <img src="{{news.image.url}}" class="card">
+                    {% else %}
+                    No Image
+                    {% endif %}
+                  </td>
+                  
+                  <td style="width: 30%">
+                    <a href="{% url 'newsapp:newsupdate' news.pk %}" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">edit</i></a>
+                    <a data-remote="{% url 'newsapp:newsdelete' news.pk %}" href="{% url 'newsapp:newsdelete' news.pk %}"class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#myModal">
+                      <i class="material-icons">close</i></a> 
+                </td>
+             </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+       </div>
+     </div>
+     <!-- end content-->
+   </div>
+   <!--  end card  -->
+ </div>
+ <!-- end col-md-12 -->
+</div>
+<!-- end row -->
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block newscat %}nav-item active{% endblock %}
+
+{% block content %}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card" class="form-control">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<div>
+							<div >
+								<h3 style="color: #000000">Add NewsSubCategory</h3>
+									<form method="post" action="" >
+										{% csrf_token %}
+
+										{{form.as_p}}
+
+										<!-- <input type="submit" value="Update"> -->
+										<span style="padding-left: 25%"><button type="submit" style="width: 150px;height: 35px">update</button></span>
+
+									</form>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}

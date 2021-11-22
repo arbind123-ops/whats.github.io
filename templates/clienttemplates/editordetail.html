@@ -1,0 +1,50 @@
+{% extends 'clienttemplates/clientbase.html' %}
+
+
+{% block content %}
+
+
+<div class="card">
+  <img src="{{ editordetail.image.url }}"  style="width:100%">
+  <h1>{{ editordetail.full_name }}</h1>
+  <p class="title">{{ editordetail.email }}</p>
+  <p>{{ editordetail.address }}</p>
+  </div>
+
+  <div class="container"> <h3> About the editor: </h3> <p>{{ editordetail.about }}</p></div>
+
+<div class="container">
+	<h1> News </h1>
+  {% for news in editordetail.news_set.all %}
+  <div class="list">
+    <a href="{% url 'newsapp:clientnewsdetail' news.id %}" class="list-group-item list-group-item-action"><h3>{{ news.title }}</h3> <p> {{ news.content}}</p></a>
+  </div>
+  <br>
+  {% endfor %}
+</div>
+
+<!-- 	<div  class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h1> News By : {{ news.editor }} </h1>
+			{% for news in editordetail.news_set.all %}
+			
+			<ul>
+				<li> {{ news.title }} </li>
+			</ul>
+				<p>{{ news.content}}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+ -->
+
+
+
+
+
+
+
+{% endblock %}

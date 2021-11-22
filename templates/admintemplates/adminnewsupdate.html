@@ -1,0 +1,35 @@
+{% extends 'admintemplates/adminbase.html' %}
+ {% load static %}
+{% block new %}nav-item active{% endblock %}
+{% block content %}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h4 style="color: #000000">update news</h4>
+						<br>
+						<form method="post"  enctype="multipart/form-data">
+							{% csrf_token %}
+
+							{{form.as_p}}
+
+							<input type="submit" value="Update">
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

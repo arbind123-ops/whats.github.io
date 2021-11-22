@@ -1,0 +1,79 @@
+{% extends 'admintemplates/adminbase.html' %}
+
+{% load static %}
+{% block news %}
+nav-item active
+{% endblock %} 
+
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+      
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">assignment</i>
+            </div>
+            <h4 class="card-title">NewsCategory Table</h4>
+            <a href="{% url 'newsapp:adminnewscategoryadd'%}"class="btn btn-lg btn-link btn-success btn-just-icon edit pull-right "><i class="material-icons" style="font-size: 50px;">add_box</i></a>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+             <div>
+
+             </div>
+           </div>
+           <div class="material-datatables">
+            <table id="datatables" class="table table-hover table-no-bordered" cellspacing="0"style="width:100%">
+              <thead>
+                <tr style="text-align: center;background-color: #2F4F4F;color: #ffffff" class="table table-bordered">
+                  <th>Sn.</th>
+                  <th>Title</th>
+                  <th style="width: 25%">Image</th>
+                  <th style="width: 25%" class="disabled-sorting">Actions</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr style="text-align: center;">
+                 <th>Sn.</th>
+                 <th>Title</th>
+                 <th style="width: 25%">Image</th>
+                 <th style="width: 25%">Actions</th>
+               </tr>
+             </tfoot>
+             <tbody>
+               {% for newscategories in adminnewscategorylist %}
+               <tr style="text-align: center">
+                <td>{{forloop.counter}}.</td>
+                <td><h6>{{newscategories.title}}</h6></td>
+                <td style="width: 25%">{% if newscategories.image %}
+                  <img src="{{newscategories.image.url}}" class="img-responsive" style="width: 30%">
+                  {% else %}
+                No Image
+                {% endif %}</td>
+                <td style="width: 25%">
+                  <a href="{% url 'newsapp:adminnewscategoryupdate' newscategories.pk %}" class="btn btn-link btn-primary btn-just-icon edit"><i class="material-icons">edit</i></a>
+
+                  <a data-remote="{% url 'newsapp:adminnewscategorydelete' newscategories.pk %}" href="{% url 'newsapp:adminnewscategorydelete' newscategories.pk %}"class="btn btn-link btn-danger btn-just-icon remove" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">close</i></a>
+                </td>
+              </tr>
+              {% endfor %}
+
+         </tbody>
+       </table>
+     </div>
+   </div>
+   <!-- end content-->
+ </div>
+ <!--  end card  -->
+</div>
+<!-- end col-md-12 -->
+</div>
+<!-- end row -->
+</div>
+</div>
+
+{% endblock %}

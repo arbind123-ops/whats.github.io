@@ -1,0 +1,16 @@
+<div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"><u>{{admindetails.user}}</u></h4>
+</div>
+<form action="{% url 'newsapp:admindetails' admindetails.pk %}">
+	<div class="modal-body">
+    {% csrf_token %}
+
+   <p>{{admindetails.about|safe}}</p>
+
+  </div>
+  <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+  </div>
+</form>

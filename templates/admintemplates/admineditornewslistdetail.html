@@ -1,0 +1,32 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block home %}
+nav-item active
+{% endblock %}
+{% block content %}
+
+<div class="container">
+          		<br>
+          		<br>
+          	<div class="row">
+          		<div class="col-md-1">
+          			
+          		</div>
+          		<div class="col-md-10">
+		          	<div class="card">	
+		          		<div class="card card-title">
+			            <h2 class="card-title text-center"><u>{{newslistdetails.title}}</u></h2>
+			        	</div>
+			        	<div class="card card-body">
+			            <p>{{newslistdetails.content|safe}}</p>
+			       		</div>
+			        </div>
+			    </div>
+			    <div class="col-md-1">
+			    	
+			    </div>
+	        </div>
+</div>
+
+
+{% endblock %}

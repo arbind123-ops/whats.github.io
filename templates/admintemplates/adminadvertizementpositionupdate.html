@@ -1,0 +1,38 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block adver %}
+nav-item active
+{% endblock %}
+{% block content %}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h1>hello</h1>
+
+						<form method="post" action="" >
+							{% csrf_token %}
+
+							{{form.as_p}}
+
+							<input type="submit" value="Update">
+
+
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

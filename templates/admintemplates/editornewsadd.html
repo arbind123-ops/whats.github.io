@@ -1,0 +1,59 @@
+{% extends 'admintemplates/editorbase.html' %}
+{% load static %}
+  {% block newslist %}
+  nav-item active
+  {% endblock %}
+{% block content %}
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<div>
+							<h3>Add NewsSubCategory</h3>
+
+							<form method="post" enctype="multipart/form-data" id ="EditorNewsForm" subcategories-url="{% url 'newsapp:load_subcategories' %}" novalidate>
+								{% csrf_token %}
+
+								{{form.as_p}}
+
+								
+								<!-- <input type="submit" value="Save"> -->
+								<button type="submit">submit</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#id_main_category").change(function () {
+      var url = $("#EditorNewsForm").attr("subcategories-url");  
+      var maincategory_id = $(this).val()
+      // alert(maincategory_id); 
+      $.ajax({                      
+        url:url,                    
+        data: {
+          'main_category': maincategory_id       
+        },
+        
+        success: function (data) {
+          
+          $("#id_sub_category").html(data);  
+          
+        }
+    });
+
+  });
+</script>
+
+
+{% endblock %}

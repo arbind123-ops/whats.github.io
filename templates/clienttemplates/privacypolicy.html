@@ -1,0 +1,10 @@
+{% extends 'clienttemplates/clientbase.html' %}
+{% block content %}
+<div class="container" class="card">
+<h1 style="text-align: center;"> privacy policy</h1>
+{% for policy in privacypolicy %}
+<p>{{policy.privacy_policy}}</p>
+
+{% endfor %}
+</div>
+{% endblock %}

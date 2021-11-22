@@ -1,0 +1,56 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block home %}
+nav-item active
+{% endblock %}
+{% block content %}
+
+<div class="content">
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card ">
+                  <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons"></i>
+                    </div>
+                    <h4 class="card-title"><u>Editor|<b>{{admineditorlist.full_name}}</b></u></h4>
+                  </div>
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="table table-responsive table-sales">
+            				<table  id="datatables" class="table table-no-bordered table-hover" cellspacing="0" style="background-color: white">
+                            <thead>
+                              <tr style="text-align: center;background-color: #2F4F4F;color:#ffffff" class="table table-bordered">
+                                <th>Sn.</th>
+                                <th>title</th>
+                                <th>content</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for adminnewslist in admineditorlist.news_set.all %}
+                              <tr style="text-align: center">
+                                <td><b>{{forloop.counter}}</b></td>
+                                <td>{{adminnewslist.title}}</a></td>
+                                <td>{{adminnewslist.content|striptags|safe|truncatechars:'40'}}<br>
+                                  <a href="{% url 'newsapp:admineditornewslistdetail' adminnewslist.id  %}"><button>read more</button></a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+        </div>
+</div>
+
+
+{% endblock %}

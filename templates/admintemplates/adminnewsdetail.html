@@ -1,0 +1,18 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+{% block new %}
+nav-item active
+{% endblock %}
+{% block content %}
+
+  <div class="content">
+    <div class="header">
+        <h2 style="text-align: center;"><u>{{adminnewsdetail.title}}</u></h2>
+      </div>
+      <div class="body">
+        <p>{{adminnewsdetail.content|safe}}</p>
+    </div>
+</div>
+
+
+{% endblock %}

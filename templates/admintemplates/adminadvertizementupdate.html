@@ -1,0 +1,36 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block advertizement %}
+nav-item active
+{% endblock %}
+{% block content %}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-primary card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h3 style="color: #000000">Update Advertisement</h3>
+						<form method="post" enctype="multipart/form-data" >
+							{% csrf_token %}
+
+							{{form.as_p}}
+
+							<!-- <input type="submit" value="Update"> -->
+							<span style="padding-left: 35%"><button style="width: 150px;height: 35px">update</button></span>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

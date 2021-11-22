@@ -1,0 +1,26 @@
+  {% extends 'clienttemplates/clientbase.html' %}
+
+   {% block content %}
+   <div class="container">
+  
+   	<div class="row">
+  
+   {% for video in videogallerys|slice:'4' %}
+   <div class="col-md-6">
+
+   	 	
+   <h1><a href="{% url 'newsapp:clienthome' %}">{{video.title}}</a></h1>
+
+   <iframe width="560" height="315" src="{{video.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  
+ 
+</div>
+
+   {% endfor %}
+
+</div>
+</div>
+  
+ 
+   {% endblock %}
